@@ -2,3 +2,6 @@ numpy
 seaborn
 pandas
 scikit-learn
+matplotlib
+mlflow
+streamlit
