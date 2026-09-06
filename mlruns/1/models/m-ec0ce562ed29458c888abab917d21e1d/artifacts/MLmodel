@@ -1,0 +1,23 @@
+artifact_path: file:C:/Users/awara/Downloads/MLops Day-01/mlruns/1/models/m-ec0ce562ed29458c888abab917d21e1d/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.skops
+    predict_fn: predict
+    python_version: 3.13.15
+  sklearn:
+    code: null
+    pickled_model: model.skops
+    serialization_format: skops
+    sklearn_version: 1.9.0
+    skops_trusted_types: null
+mlflow_version: 3.15.2
+model_id: m-ec0ce562ed29458c888abab917d21e1d
+model_size_bytes: 7888
+model_uuid: m-ec0ce562ed29458c888abab917d21e1d
+prompts: null
+run_id: d9ee5e1adebf4901b0052f3849188040
+utc_time_created: '2026-09-06 11:48:06.444882'

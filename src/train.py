@@ -46,17 +46,17 @@ for name, model in models.items():
         
         mlflow.log_param("model_type", name)
         mlflow.log_metric("test_rmse", rmse)
-        mlflow.sklearn.log_model(model, artifact_path="model")
-        batch_runs.append((run.info.run_id, rmse))
-
+        model_info = mlflow.sklearn.log_model(model, name="model")
+        batch_runs.append((run.info.run_id, rmse, model_info.model_uri))
+        
 # 4. Find Best Model
 batch_runs.sort(key=lambda x: x[1])
-best_run_id, best_rmse = batch_runs[0]
+best_run_id, best_rmse, best_model_uri = batch_runs[0]
 
 # 5. Register Challenger
 client = MlflowClient()
 challenger_model = mlflow.register_model(
-    model_uri=f"runs:/{best_run_id}/model",
+    model_uri=best_model_uri,
     name=registered_model_name
 )
 challenger_version = challenger_model.version
@@ -89,9 +89,12 @@ champion_info = client.get_model_version_by_alias(
     "champion"
 )
 
-champion_model_uri = f"models:/{registered_model_name}/{champion_info.version}"
+# Get the actual model source recorded by MLflow
+champion_source = champion_info.source
 
-champion_model = mlflow.sklearn.load_model(champion_model_uri)
+print(f"🏆 Loading Champion v{champion_info.version} from: {champion_source}")
+
+champion_model = mlflow.sklearn.load_model(champion_source)
 
 # Save standalone champion artifact
 champion_export_path = os.path.join(MODELS_DIR, "champion_model.pkl")
