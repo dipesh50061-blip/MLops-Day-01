@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -24,6 +25,15 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+
+      - name: Ensure ECR Repository Exists
+        run: |
+          aws ecr describe-repositories \
+            --repository-names streamlit-mlops-app \
+            --region us-east-1 \
+          || aws ecr create-repository \
+            --repository-name streamlit-mlops-app \
+            --region us-east-1
 
       - name: Log in to Amazon ECR
         id: login-ecr
