@@ -1,4 +1,4 @@
-artifact_path: file:C:/Users/awara/Downloads/MLops Day-01/mlruns/1/models/m-d61b0e31cfda4aefbb91d49148074d07/artifacts
+artifact_path: file:C:/Users/awara/Downloads/MLops Day-01/mlruns/1/models/m-8d7b8b341c504f17a75f328925709f9e/artifacts
 flavors:
   python_function:
     env:
@@ -15,9 +15,9 @@ flavors:
     sklearn_version: 1.9.0
     skops_trusted_types: null
 mlflow_version: 3.15.2
-model_id: m-d61b0e31cfda4aefbb91d49148074d07
+model_id: m-8d7b8b341c504f17a75f328925709f9e
 model_size_bytes: 7888
-model_uuid: m-d61b0e31cfda4aefbb91d49148074d07
+model_uuid: m-8d7b8b341c504f17a75f328925709f9e
 prompts: null
-run_id: 31bf06562b0246bbbb21be01f0c3907b
-utc_time_created: '2026-09-03 13:00:28.356763'
+run_id: 32dc8194423a4b61ac516055f575511f
+utc_time_created: '2026-09-06 10:02:57.187444'
