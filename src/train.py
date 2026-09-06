@@ -83,21 +83,16 @@ except Exception:
 
 
 
-# Load current champion from MLflow Registry
-champion_info = client.get_model_version_by_alias(
-    registered_model_name,
-    "champion"
-)
-
-# Get the actual model source recorded by MLflow
-champion_source = champion_info.source
-
-print(f"🏆 Loading Champion v{champion_info.version} from: {champion_source}")
-
-champion_model = mlflow.sklearn.load_model(champion_source)
-
-# Save standalone champion artifact
+# Load current champion artifact
 champion_export_path = os.path.join(MODELS_DIR, "champion_model.pkl")
-joblib.dump(champion_model, champion_export_path)
 
-print(f"✅ Exported registry champion model to {champion_export_path}")
+if os.path.exists(champion_export_path):
+    champion_model = joblib.load(champion_export_path)
+    print(f"🏆 Loaded existing Champion artifact from: {champion_export_path}")
+else:
+    # First-ever training: the challenger becomes champion
+    champion_model = mlflow.sklearn.load_model(best_model_uri)
+    joblib.dump(champion_model, champion_export_path)
+    print(f"🌟 First Champion exported to: {champion_export_path}")
+
+print(f"✅ Champion artifact ready at {champion_export_path}")
